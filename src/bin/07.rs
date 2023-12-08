@@ -20,40 +20,38 @@ struct Hand {
 }
 
 impl Hand {
-    fn eval(&self) -> (Combination, Vec<(char, usize)>) {
+    fn eval(&self) -> Combination {
         let char_count = count_characters(&self.cards);
 
         if char_count[0].1 == 5 {
-            (Combination::FiveOfAKind, char_count)
+            Combination::FiveOfAKind
         } else if char_count[0].1 == 4 {
-            (Combination::FourOfAKind, char_count)
+            Combination::FourOfAKind
         } else if char_count[0].1 == 3 && char_count[1].1 == 2 {
-            (Combination::FullHouse, char_count)
+            Combination::FullHouse
         } else if char_count[0].1 == 3 {
-            (Combination::ThreeOfAKind, char_count)
+            Combination::ThreeOfAKind
         } else if char_count[0].1 == 2 && char_count[1].1 == 2 {
-            (Combination::TwoPair, char_count)
+            Combination::TwoPair
         } else if char_count[0].1 == 2 {
-            (Combination::OnePair, char_count)
+            Combination::OnePair
         } else {
-            (Combination::HighCard, char_count)
+            Combination::HighCard
         }
     }
 }
 
 impl Ord for Hand {
     fn cmp(&self, other: &Self) -> Ordering {
-        let (self_combination, self_counts) = self.eval();
-        let (other_combination, other_counts) = other.eval();
-        let combination_diff = self_combination as i32 - other_combination as i32;
+        let combination_diff = self.eval() as i32 - other.eval() as i32;
 
         match combination_diff.cmp(&0) {
             Ordering::Less => Ordering::Less,
             Ordering::Greater => Ordering::Greater,
             Ordering::Equal => {
-                for it in self_counts.iter().zip(other_counts.iter()) {
+                for it in self.cards.chars().zip(other.cards.chars()) {
                     let (self_it, other_it) = it;
-                    let diff = compare_strengths(self_it.0, other_it.0);
+                    let diff = compare_strengths(self_it, other_it);
 
                     if diff != Ordering::Equal {
                         return diff;
@@ -68,25 +66,29 @@ impl Ord for Hand {
 
 fn count_characters(s: &str) -> Vec<(char, usize)> {
     let mut char_count = HashMap::new();
+    let mut joker_count = 0;
 
     for ch in s.chars() {
+        // Joker
+        if ch == 'j' {
+            joker_count += 1;
+            continue;
+        }
+
         let count = char_count.entry(ch).or_insert(0);
         *count += 1;
     }
 
     let mut char_count_vec: Vec<_> = char_count.into_iter().collect();
 
-    char_count_vec.sort_by(|a, b| {
-        // First, compare by count in descending order
-        let count_ordering = b.1.cmp(&a.1);
+    char_count_vec.sort_by(|a, b| b.1.cmp(&a.1));
 
-        // If counts are equal, compare alphabetically
-        if count_ordering == std::cmp::Ordering::Equal {
-            compare_strengths(b.0, a.0)
-        } else {
-            count_ordering
-        }
-    });
+    if char_count_vec.is_empty() {
+        // If it's empty it means that all cards were jokers
+        char_count_vec.push(('j', 5));
+    } else {
+        char_count_vec[0].1 += joker_count;
+    }
 
     char_count_vec
 }
@@ -97,11 +99,12 @@ fn compare_strengths(a: char, b: char) -> Ordering {
 
 fn strength_score(c: char) -> i32 {
     match c {
-        'A' => 13,
-        'K' => 12,
+        'A' => 14,
+        'K' => 13,
         'Q' => 12,
         'J' => 11,
         'T' => 10,
+        'j' => 1,
         _ => c.to_digit(10).expect("Incorrect character") as i32,
     }
 }
@@ -146,7 +149,8 @@ pub fn part_one(input: &str) -> Option<u32> {
 }
 
 pub fn part_two(input: &str) -> Option<u32> {
-    None
+    // For the Joker I use a small case j instead so I can make the code generic
+    part_one(&input.replace('J', "j"))
 }
 
 #[cfg(test)]
@@ -156,12 +160,12 @@ mod tests {
     #[test]
     fn test_part_one() {
         let result = part_one(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, Some(6440));
+        assert_eq!(result, Some(117608084));
     }
 
     #[test]
     fn test_part_two() {
         let result = part_two(&advent_of_code::template::read_file("examples", DAY));
-        assert_eq!(result, None);
+        assert_eq!(result, Some(116776127));
     }
 }
