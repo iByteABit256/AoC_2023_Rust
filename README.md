@@ -1,6 +1,6 @@
 <img src="./.assets/christmas_ferris.png" width="164">
 
-# 🎄 Advent of Code {year}
+# ???? Advent of Code {year}
 
 Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/).
 
@@ -11,9 +11,9 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 
 | Day | Part 1 | Part 2 |
 | :---: | :---: | :---:  |
-| [Day 4](./src/bin/04.rs) | `340.5µs` | `378.6µs` |
+| [Day 7](./src/bin/07.rs) | `3.0ms` | `2.9ms` |
 
-**Total: 0.72ms**
+**Total: 5.90ms**
 <!--- benchmarking table --->
 
 ---
@@ -22,14 +22,14 @@ Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.
 
 This template supports all major OS (macOS, Linux, Windows).
 
-### Create your repository 📝
+### Create your repository ????
 
 1.  Open [the template repository](https://github.com/fspoettel/advent-of-code-rust) on Github.
 2.  Click [Use this template](https://github.com/fspoettel/advent-of-code-rust/generate) and create your repository.
 3.  Clone your repository to your computer.
 4.  If you are solving a previous year's advent of code, change the `AOC_YEAR` variable in `.cargo/config.toml` to reflect the year you are solving.
 
-### Setup rust 💻
+### Setup rust ????
 
 1.  Install the [Rust toolchain](https://www.rust-lang.org/tools/install).
 2.  (recommended) Install the [rust-analyzer](https://rust-analyzer.github.io/manual.html) extension for your code editor.
@@ -37,7 +37,7 @@ This template supports all major OS (macOS, Linux, Windows).
 
 ---
 
-✨ You can start solving puzzles now! Head to the [Usage section](#usage) to see how to use this template. If you like, you can configure [some optional features](#optional-template-features).
+??? You can start solving puzzles now! Head to the [Usage section](#usage) to see how to use this template. If you like, you can configure [some optional features](#optional-template-features).
 
 ## Usage
 
@@ -52,7 +52,7 @@ cargo scaffold <day>
 # Created empty input file "data/inputs/01.txt"
 # Created empty example file "data/examples/01.txt"
 # ---
-# 🎄 Type `cargo solve 01` to run your solution.
+# ???? Type `cargo solve 01` to run your solution.
 ```
 
 Individual solutions live in the `./src/bin/` directory as separate binaries. _Inputs_ and _examples_ live in the the `./data` directory.
@@ -75,12 +75,12 @@ Every [solution](https://github.com/fspoettel/advent-of-code-rust/blob/main/src/
 cargo download <day>
 
 # output:
-# [INFO  aoc] 🎄 aoc-cli - Advent of Code command-line tool
-# [INFO  aoc_client] 🎅 Saved puzzle to 'data/puzzles/01.md'
-# [INFO  aoc_client] 🎅 Saved input to 'data/inputs/01.txt'
+# [INFO  aoc] ???? aoc-cli - Advent of Code command-line tool
+# [INFO  aoc_client] ???? Saved puzzle to 'data/puzzles/01.md'
+# [INFO  aoc_client] ???? Saved input to 'data/inputs/01.txt'
 # ---
-# 🎄 Successfully wrote input to "data/inputs/01.txt".
-# 🎄 Successfully wrote puzzle to "data/puzzles/01.md".
+# ???? Successfully wrote input to "data/inputs/01.txt".
+# ???? Successfully wrote puzzle to "data/puzzles/01.md".
 ```
 
 ### Run solutions for a day
@@ -131,7 +131,7 @@ This runs all solutions sequentially and prints output to the command-line. Same
 
 The template can output a table with solution times to your readme. In order to generate a benchmarking table, run `cargo all --release --time`. If everything goes well, the command will output "_Successfully updated README with benchmarks._" after the execution finishes and the readme will be updated.
 
-Please note that these are not "scientific" benchmarks, understand them as a fun approximation. 😉 Timings, especially in the microseconds range, might change a bit between invocations.
+Please note that these are not "scientific" benchmarks, understand them as a fun approximation. ???? Timings, especially in the microseconds range, might change a bit between invocations.
 
 ### Run all tests
 
@@ -177,7 +177,7 @@ cargo read <day>
 
 Once installed, you can use the [download command](#download-input--description-for-a-day), the read command, and automatically submit solutions via the [`--submit` flag](#submitting-solutions).
 
-### Automatically track ⭐️ progress in the readme
+### Automatically track ?????? progress in the readme
 
 This template includes [a Github action](https://github.com/k2bd/advent-readme-stars) that automatically updates the readme with your advent of code progress.
 
@@ -199,7 +199,7 @@ Go to the _Variables_ tab in your repository settings and create the following v
 
 -   `AOC_ENABLED`: This variable controls whether the workflow is enabled. Set it to `true` to enable the progress tracker. After you complete AoC or no longer work on it, you can set this to `false` to disable the CI.
 
-✨ You can now run this action manually via the _Run workflow_ button on the workflow page. If you want the workflow to run automatically, uncomment the `schedule` section in the `readme-stars.yml` workflow file or add a `push` trigger.
+??? You can now run this action manually via the _Run workflow_ button on the workflow page. If you want the workflow to run automatically, uncomment the `schedule` section in the `readme-stars.yml` workflow file or add a `push` trigger.
 
 ### Check code formatting / clippy lints in CI
 
